@@ -22,7 +22,7 @@ routes.registerStatistic = function(req, res) {
 
     ApiKeyManager.findProject(apiKey, function(project) {
         if((!(project instanceof Object)) || !project.url) {
-            res.status(404).send("Problems found on your api key");
+            res.status(400).send("Problems found on your api key");
             return;
         }
 
