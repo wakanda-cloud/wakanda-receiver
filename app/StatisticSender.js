@@ -11,7 +11,7 @@ StatisticSender.send = function (url, data, callback) {
         "headers": {
             "content-type": "text/plain"
         },
-        "url": url,
+        "url": url + "/registerStatistic",
         "method": "POST",
         "data": data
     };
