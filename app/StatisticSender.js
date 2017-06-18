@@ -13,7 +13,7 @@ StatisticSender.send = function (url, data, callback) {
         },
         "url": url + "/registerStatistic",
         "method": "POST",
-        "data": data
+        "body": data
     };
 
     request(settings);
