@@ -20,15 +20,14 @@ routes.registerStatistic = function(req, res) {
     let apiKey = req.body.apiKey;
     let statisticData = req.body.data;
 
-    ApiKeyManager.findProject(apiKey, function(project, status) {
-        if(status !== 200) {
-            res.status(status).send("Problems found on your api key");
+    ApiKeyManager.findProject(apiKey, function(project) {
+        if((!(project instanceof Object)) || !project.url) {
+            res.status(404).send("Problems found on your api key");
             return;
         }
 
-        sendStatistic(project, statisticData, function(status) {
-            status === 200 ? res.status(200).send() : res.status(404).send();
-        });
+        sendStatistic(project, statisticData);
+        res.status(200).send();
     });
 
 };

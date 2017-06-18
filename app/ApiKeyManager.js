@@ -13,24 +13,12 @@ ApiKeyManager.storeApiKey = function(wakandaInstanceData) {
 };
 
 ApiKeyManager.findProject = function(apiKey, callback) {
-    //var url = 'https://wakanda-instance-generator.herokuapp.com';
-    var url = 'http://localhost:5000';
-    var options = {
-        url: url + "/projects",
-        crossDomain: true,
-        async:"false",
-        headers: {
-            "content-type": "application/x-www-form-urlencoded",
-            "cache-control": "no-cache"
-        },
-        data: {
-            apiKey: apiKey
-        }
-    };
-    request(options, function(error, response, body) {
-        if(response.statusCode === 200) {
-            callback.apply(this, body, response.statusCode);
-        }
+    redisClient.get(apiKey, function(error, data) {
+       if(data) {
+          callback.call(this, JSON.parse(data));
+       } else {
+           callback.call(this, null);
+       }
     });
 };
 

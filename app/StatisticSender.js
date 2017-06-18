@@ -16,11 +16,7 @@ StatisticSender.send = function (url, data, callback) {
         "data": data
     };
 
-    request(settings, function (error, response, body) {
-        if (response.statusCode === 200) {
-            callback.apply(this, response);
-        }
-    });
+    request(settings);
 };
 
 module.exports = StatisticSender;
