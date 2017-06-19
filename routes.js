@@ -6,9 +6,10 @@ let ApiKeyManager = require('./app/ApiKeyManager');
 let StatisticSender = require('./app/StatisticSender');
 
 routes.deleteApiKey = function (req, res) {
-    let apiKey = req.body.apiKey;
+    let apiKey = req.query.apiKey;
 
     ApiKeyManager.deleteApiKey(apiKey);
+    res.status(200);
 };
 
 routes.registerApiKey = function(req, res) {
