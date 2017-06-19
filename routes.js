@@ -9,7 +9,7 @@ routes.deleteApiKey = function (req, res) {
     let apiKey = req.query.apiKey;
 
     ApiKeyManager.deleteApiKey(apiKey);
-    res.status(200);
+    res.status(200).send();
 };
 
 routes.registerApiKey = function(req, res) {
