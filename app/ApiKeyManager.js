@@ -2,14 +2,12 @@
 
 var request = require('request');
 var redisClient = require('./RedisConnector');
-var crypto = require('crypto');
 
 class ApiKeyManager {
 }
 
 ApiKeyManager.storeApiKey = function(wakandaInstanceData) {
-    let hash = crypto.createHash('md5').update(JSON.stringify(wakandaInstanceData.name)).digest('hex');
-    redisClient.set(hash, JSON.stringify(wakandaInstanceData));
+    redisClient.set(wakandaInstanceData.apiKey, JSON.stringify(wakandaInstanceData));
 };
 
 ApiKeyManager.findProject = function(apiKey, callback) {
