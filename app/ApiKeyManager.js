@@ -7,6 +7,7 @@ class ApiKeyManager {
 }
 
 ApiKeyManager.deleteApiKey = function(apiKey) {
+    console.log("Deleting api key: " + apiKey);
     redisClient.del(apiKey);
 };
 
