@@ -5,6 +5,12 @@ let securityService = require('./app/SecurityService');
 let ApiKeyManager = require('./app/ApiKeyManager');
 let StatisticSender = require('./app/StatisticSender');
 
+routes.deleteApiKey = function (req, res) {
+    let apiKey = req.body.apiKey;
+
+    ApiKeyManager.deleteApiKey(apiKey);
+};
+
 routes.registerApiKey = function(req, res) {
     let data = req.body.wakandaInstanceData;
 

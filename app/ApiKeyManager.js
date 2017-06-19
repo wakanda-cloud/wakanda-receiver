@@ -6,9 +6,14 @@ var redisClient = require('./RedisConnector');
 class ApiKeyManager {
 }
 
+ApiKeyManager.deleteApiKey = function(apiKey) {
+    redisClient.del(apiKey);
+};
+
 ApiKeyManager.storeApiKey = function(wakandaInstanceData) {
     redisClient.set(wakandaInstanceData.apiKey, JSON.stringify(wakandaInstanceData));
 };
+
 
 ApiKeyManager.findProject = function(apiKey, callback) {
     redisClient.get(apiKey, function(error, data) {
