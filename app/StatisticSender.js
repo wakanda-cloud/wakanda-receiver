@@ -5,12 +5,12 @@ let request = require('request');
 class StatisticSender {
 }
 
-    StatisticSender.send = function (url, data) {
-        let options = {
-            uri: url + "/registerStatistic",
-            method: 'POST',
-            json: JSON.stringify(data)
-        };
+StatisticSender.send = function (url, data) {
+    let options = {
+        uri: url + "/registerStatistic",
+        method: 'POST',
+        json: JSON.stringify(data)
+    };
 
     request(options);
 };
