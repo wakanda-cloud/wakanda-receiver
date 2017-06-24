@@ -39,8 +39,8 @@ CryptoJS.AES.encrypt(jsonStatistic, encryptKey, {
     mode: CryptoJS.mode.CTR
 }).toString()
 ```
-You need escape the "+" characters to %2B before send POST.
-Try on https://jsfiddle.net/w1fb8pn0/
+*You need escape the "+" characters to %2B before send POST.*
+<br>Try on https://jsfiddle.net/w1fb8pn0/
 
 *Note: we already have libraries for some languages like: 
 [Javascript: "wakanda-js"];<br>
