@@ -5,18 +5,14 @@ let request = require('request');
 class StatisticSender {
 }
 
-StatisticSender.send = function (url, data, callback) {
-    let settings = {
-        "crossDomain": true,
-        "headers": {
-            "content-type": "text/plain"
-        },
-        "url": url + "/registerStatistic",
-        "method": "POST",
-        "body": data
-    };
+    StatisticSender.send = function (url, data) {
+        let options = {
+            uri: url + "/registerStatistic",
+            method: 'POST',
+            json: JSON.stringify(data)
+        };
 
-    request(settings);
+    request(options);
 };
 
 module.exports = StatisticSender;

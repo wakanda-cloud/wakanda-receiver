@@ -25,7 +25,6 @@ routes.registerApiKey = function(req, res) {
 
 routes.registerStatistic = function(req, res) {
     let apiKey = req.body.apiKey;
-    let statisticData = req.body.data;
 
     ApiKeyManager.findProject(apiKey, function(project) {
         if((!(project instanceof Object)) || !project.url) {
@@ -33,14 +32,14 @@ routes.registerStatistic = function(req, res) {
             return;
         }
 
-        sendStatistic(project, statisticData);
+        sendStatistic(project, req.body);
         res.status(200).send();
     });
 
 };
 
-let sendStatistic = function(project, data, responseCallback) {
-    StatisticSender.send(project.url, data, responseCallback);
+let sendStatistic = function(project, data) {
+    StatisticSender.send(project.url, data);
 };
 
 module.exports = routes;
