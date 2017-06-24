@@ -34,15 +34,18 @@ We recommend to use <a href="https://code.google.com/archive/p/crypto-js"> Crypt
 Example on Javascript:
 
 ```javascript
-var encryptKey = 12345678;
+var encryptKey = "12345678";
 CryptoJS.AES.encrypt(jsonStatistic, encryptKey, {
     mode: CryptoJS.mode.CTR
 }).toString()
 ```
+You need escape the "+" characters to %2B before send POST.
+Try on https://jsfiddle.net/w1fb8pn0/
+
 *Note: we already have libraries for some languages like: 
-[Javascript: "wakanda-js"]; 
-[Java: "jwakanda"];
-[NodeJS: "node-wakanda"];
+[Javascript: "wakanda-js"];<br>
+[Java: "jwakanda"];<br>
+[NodeJS: "node-wakanda"];<br>
 
 Help us developing your own or improve existing libraries on our repositories.
 
