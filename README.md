@@ -1,67 +1,49 @@
-# Getting Started
+# Getting Started with Wakanda REST API
 
-<h3> Import on your HTML Page </h2>
+```POST -> https://wakanda-statistic-receiver.herokuapp.com/registerStatistic```<br>
 
-```html
-  <!--Works with jquery-1.11.0 or greater!-->
-  <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="></script><br>
-  <script src="http://yourjavascript.com/7211376933/wakanda-min.js"></script>
+JSON STATISTIC FORMAT
+```json
+"client": "",
+"module": "",
+"submodule": "",
+"title": "",
+"linkClicked": "",
+"token": ""
 ```
-Start wakanda API like below
+*For now its a fixed layout to register statistics;<br>
 
-```javascript
-  $(document).ready(function() {
-      var yourEncryptKey = "qwertyui";
-      var yourApiKey = "fa1ccde140d8281694e305e53d48fe2c";
-      new Wakanda(yourEncryptKey, yourApiKey, {
-          client: "Wakanda",
-          module: "Dashboard",
-          submodule: "Widgets",
-          title:  "Frequency Statistics",
-          geoLocation: true
-      });
-  });
-```
+The post must have a API Key like below.
 
-Now annotate your HTML elements with ".wakanda" class:
-
-```html
-  <button class="wakanda">Save</button>
-  <a class="wakanda" href="anyurl">Click here</a>
-  <img class="wakanda" src="anyImage"/>
-```
-When these elements are clicked, they will fire statistic from you app to your dashboard.
-
-<h2> Advanced </h2>
-
-If you want do some validations before statistic send or you want fire statistic with asynchronous
-functions you can fire statistic manually like below:
-
-```javascript
-  //Example 1
-  Wakanda.instance.fireRegisterStatistic(Wakanda.instance);
-  
-  //Example 2: store Wakanda in a global variable to use after
-  var wakanda = new Wakanda(yourEncryptKey, yourApiKey, appConfigs);
-  wakanda.fireRegisterStatistic(wakanda);
-```
-
-If you working with a responsive page and some primary attributes (module, submodule, title) changes after
-user use your pages you can configure these attributes manually too:
-
-```javascript
-  var wakanda = new Wakanda(yourEncryptKey, yourApiKey);
-  
-  function someUserEvent() {
-    wakanda.client = "Other client";
-    wakanda.module = "Other module";
-    wakanda.submodule = "Other submodule";
-    wakanda.title = "Other title";
+```json
+{
+  "apiKey" : "<app key>",
+  "data" : {
+    "client": "",
+    "module": "",
+    "submodule": "",
+    "title": "",
+    "linkClicked": "",
+    "location" : ""
   }
-  
-  function save() {
-    wakanda.fireRegisterStatistic(wakanda);
-  }
-  
+}
 ```
+But this is will not work by itself, the "data" field, must be encrypted in AES-256 on CTR Mode using the Encrypt Key located on your project on of side from ApiKey.
 
+We recommend to use <a href="https://code.google.com/archive/p/crypto-js"> CryptoJS</a> or simillar to do this.
+Example on Javascript:
+
+```javascript
+var encryptKey = 12345678;
+CryptoJS.AES.encrypt(jsonStatistic, encryptKey, {
+    mode: CryptoJS.mode.CTR
+}).toString()
+```
+*Note: we already have libraries for some languages like: 
+[Javascript: "wakanda-js"]; 
+[Java: "jwakanda"];
+[NodeJS: "node-wakanda"];
+
+Help us developing your own or improve existing libraries on our repositories.
+
+Browse libraries on https://github.com/wakanda-libraries/
