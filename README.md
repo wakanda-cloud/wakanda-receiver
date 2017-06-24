@@ -13,7 +13,7 @@ The post must have a API Key and data "like" below.
     "submodule": "",
     "title": "",
     "linkClicked": "",
-    "location" : "" /*`latitude;longitude`*/
+    "location" : "" /*latitude;longitude*/
   }
 }
 ```
