@@ -2,18 +2,7 @@
 
 ```POST -> https://wakanda-statistic-receiver.herokuapp.com/registerStatistic```<br>
 
-JSON STATISTIC FORMAT
-```json
-"client": "",
-"module": "",
-"submodule": "",
-"title": "",
-"linkClicked": "",
-"token": ""
-```
-*For now its a fixed layout to register statistics;<br>
-
-The post must have a API Key like below.
+The post must have a API Key and data "like" below.
 
 ```json
 {
@@ -24,7 +13,7 @@ The post must have a API Key like below.
     "submodule": "",
     "title": "",
     "linkClicked": "",
-    "location" : ""
+    "location" : "" // `latitude;longitude`
   }
 }
 ```
