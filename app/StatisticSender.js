@@ -9,7 +9,7 @@ StatisticSender.send = function (url, data) {
     let options = {
         uri: url + "/registerStatistic",
         method: 'POST',
-        json: JSON.stringify(data)
+        json: data
     };
 
     request(options);
