@@ -3,7 +3,8 @@
 let routes = function(){};
 let securityService = require('./app/SecurityService');
 let ApiKeyManager = require('./app/ApiKeyManager');
-let StatisticSender = require('./app/StatisticSender');
+let WakandaInstanceCommunicator = require('./app/WakandaInstanceCommunicator');
+let WakandaAuthenticator = require('./app/WakandaAuthenticator');
 
 routes.deleteApiKey = function (req, res) {
     let apiKey = req.query.apiKey;
@@ -23,23 +24,37 @@ routes.registerApiKey = function(req, res) {
     }
 };
 
-routes.registerStatistic = function(req, res) {
+routes.deleteStatistics = function (req, res) {
     let apiKey = req.body.apiKey;
 
-    ApiKeyManager.findProject(apiKey, function(project) {
-        if((!(project instanceof Object)) || !project.url) {
-            res.status(400).send("Problems found on your api key");
-            return;
-        }
+    let error = function(data, status) {
+        res.status(status).send("Error on deleteStatistics for " + apiKey + " to " + req.body.email);
+    };
 
-        sendStatistic(project, req.body);
-        res.status(200).send();
-    });
+    new WakandaAuthenticator().authenticate(req.body.email, req.body.token, function() {
+        routes.doForProjectWithApiKey(apiKey, res, function(project) {
+            WakandaInstanceCommunicator.deleteAllData(project.url);
+        });
+    }, error);
 
 };
 
-let sendStatistic = function(project, data) {
-    StatisticSender.send(project.url, data);
+routes.doForProjectWithApiKey = function (apiKey, res, callback) {
+    ApiKeyManager.findProject(apiKey, function (project) {
+        if ((!(project instanceof Object)) || !project.url) {
+            res.status(400).send("Problems found on your api key");
+        } else {
+            callback.call(this, project);
+            res.status(200).send();
+        }
+    });
+};
+routes.registerStatistic = function(req, res) {
+    let apiKey = req.body.apiKey;
+
+    this.doForProjectWithApiKey(apiKey, res, function(project) {
+        WakandaInstanceCommunicator.send(project.url, req.body);
+    });
 };
 
 module.exports = routes;

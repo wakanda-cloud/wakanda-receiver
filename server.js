@@ -26,5 +26,6 @@ app.use(cors());
 
 app.use(bodyparser.json());
 app.post('/statistics', routes.registerStatistic);
+app.delete('/statistics', routes.deleteStatistics);
 app.post('/apikey', routes.registerApiKey);
 app.delete('/apikey', routes.deleteApiKey);
