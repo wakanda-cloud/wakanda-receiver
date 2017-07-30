@@ -1,14 +1,24 @@
 'use strict';
 
 let request = require('request');
+let CryptoJS = require('crypto-js');
 
 class WakandaInstanceCommunicator {
 }
 
-WakandaInstanceCommunicator.deleteAllData = function (url) {
+WakandaInstanceCommunicator.deleteAllData = function (url, encryptKey) {
+    var data = JSON.stringify({
+        key : encryptKey
+    });
+
     let options = {
         uri: url + "/deleteStatistics",
-        method: 'POST'
+        method: 'POST',
+        json: {
+            data: CryptoJS.AES.encrypt(data, encryptKey, {
+                mode: CryptoJS.mode.CTR
+            }).toString()
+        }
     };
     request(options);
 };
