@@ -31,11 +31,11 @@ routes.deleteStatistics = function (req, res) {
         res.status(status).send("Error on deleteStatistics for " + apiKey + " to " + req.body.email);
     };
 
-    //new WakandaAuthenticator().authenticate(req.body.email, req.body.token, function() {
+    new WakandaAuthenticator().authenticate(req.body.email, req.body.token, function() {
         routes.doForProjectWithApiKey(apiKey, res, function(project) {
             WakandaInstanceCommunicator.deleteAllData(project.url, project.decryptKey);
         });
-    //}, error);
+    }, error);
 
 };
 
@@ -52,7 +52,7 @@ routes.doForProjectWithApiKey = function (apiKey, res, callback) {
 routes.registerStatistic = function(req, res) {
     let apiKey = req.body.apiKey;
 
-    this.doForProjectWithApiKey(apiKey, res, function(project) {
+    routes.doForProjectWithApiKey(apiKey, res, function(project) {
         WakandaInstanceCommunicator.send(project.url, req.body);
     });
 };
