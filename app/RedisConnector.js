@@ -5,10 +5,6 @@ let redisClient = null;
 
 if (process.env.REDIS_URL) {
     redisClient = redis.createClient(process.env.REDIS_URL, {no_ready_check: true});
-} else if (process.env.REDIS_STATISTIC_RECEIVER_NAME) {
-    let port = process.env.REDIS_STATISTIC_RECEIVER_PORT_6379_TCP_PORT;
-    let address = process.env.REDIS_STATISTIC_RECEIVER_PORT_6379_TCP_ADDR;
-    redisClient = redis.createClient(port, address);
 } else {
     redisClient = redis.createClient();
 }
