@@ -9,6 +9,8 @@ if (process.env.REDIS_URL) {
     let port = process.env.REDIS_STATISTIC_RECEIVER_PORT_6379_TCP_PORT;
     let address = process.env.REDIS_STATISTIC_RECEIVER_PORT_6379_TCP_ADDR;
     redisClient = redis.createClient(port, address);
+} else {
+    redisClient = redis.createClient();
 }
 
 redisClient.on('connect', function() {
