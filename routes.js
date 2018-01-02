@@ -42,6 +42,7 @@ routes.deleteStatistics = function (req, res) {
 routes.doForProjectWithApiKey = function (apiKey, res, callback) {
     ApiKeyManager.findProject(apiKey, function (project) {
         if ((!(project instanceof Object)) || !project.url) {
+            console.log('Instance found: ' + project);
             res.status(400).send("Problems found on your api key");
         } else {
             callback.call(this, project);

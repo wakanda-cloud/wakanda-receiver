@@ -15,13 +15,13 @@ ApiKeyManager.storeApiKey = function(wakandaInstanceData) {
     redisClient.set(wakandaInstanceData.apiKey, JSON.stringify(wakandaInstanceData));
 };
 
-
 ApiKeyManager.findProject = function(apiKey, callback) {
+    console.log('Trying to find by apiKey: ' + apiKey);
     redisClient.get(apiKey, function(error, data) {
        if(data) {
-          callback.call(this, JSON.parse(data));
+            callback.call(this, JSON.parse(data));
        } else {
-           callback.call(this, null);
+            callback.call(this, null);
        }
     });
 };
